@@ -124,3 +124,8 @@ Bignum *Bignum::fromString(string &str) {
 
 	return current;
 }
+
+Bignum *Bignum::fromString(const char *str) {
+	string s = str;
+	return Bignum::fromString(s);
+}

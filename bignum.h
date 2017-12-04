@@ -26,4 +26,5 @@ public:
 
 	static Bignum *sum(Bignum*, Bignum*);
 	static Bignum *fromString(std::string&);
+	static Bignum *fromString(const char*); // REVIEW
 };
