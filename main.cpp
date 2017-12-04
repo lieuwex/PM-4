@@ -5,9 +5,9 @@
 using namespace std;
 
 int main(void) {
-	for (int i = 0; i < 50; i++) {
+	for (int i = 0; i <= 2000; i++) {
 		Bignum *fib = Bignum::fibonacci(i);
-		cout << "\t" << i << ": " << fib->stringify() << endl;
+		cout << i << ": " << fib->stringify() << endl;
 		delete fib;
 	}
 }

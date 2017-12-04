@@ -21,25 +21,58 @@ int ndigits(T num)
 	return len;
 }
 
+
 Bignum::Bignum() {
 	this->prev = nullptr;
 	this->next = nullptr;
 	this->value = 0;
 }
+
 Bignum::Bignum(int n) {
 	this->prev = nullptr;
 	this->next = nullptr;
 	this->value = n;
 }
+
 // only copies to right
 Bignum::Bignum(const Bignum *num) {
 	this->prev = num->prev;
 	this->next = num->next ? new Bignum(num->next) : nullptr;
 	this->value = num->value;
 }
+
 Bignum::~Bignum() {
 	delete this->next;
 	this->next = nullptr;
+}
+
+
+Bignum *Bignum::prepend(Bignum *num) {
+	num->prev = this->prev;
+	this->prev = num;
+	num->next = this;
+	return num;
+}
+
+Bignum *Bignum::append(Bignum *num) {
+	num->next = this->next;
+	this->next = num;
+	num->prev = this;
+	return num;
+}
+
+
+string Bignum::stringify(void) const {
+	stringstream ss;
+
+	const Bignum *current = this;
+	ss << current->value;
+	while (current->next != nullptr) {
+		current = current->next;
+		ss << setfill('0') << setw(NODE_SIZE) << current->value;
+	}
+
+	return ss.str();
 }
 
 const Bignum *Bignum::begin(void) const {
@@ -57,37 +90,9 @@ const Bignum *Bignum::end(void) const {
 	return current;
 }
 
-Bignum *Bignum::prepend(Bignum *num) {
-	num->prev = this->prev;
-	this->prev = num;
-	num->next = this;
-	return num;
-}
-
-Bignum *Bignum::append(Bignum *num) {
-	num->next = this->next;
-	this->next = num;
-	num->prev = this;
-	return num;
-}
-
-string Bignum::stringify(void) const {
-	stringstream ss;
-
-	const Bignum *current = this;
-	ss << current->value;
-	while (current->next != nullptr) {
-		current = current->next;
-		ss << setfill('0') << setw(NODE_SIZE) << current->value;
-	}
-
-	return ss.str();
-}
 
 Bignum *Bignum::sum(const Bignum *a, const Bignum *b) {
 	unsigned short carry = 0;
-
-	// cout << a->begin()->stringify() << "+" << b->begin()->stringify();
 
 	Bignum *res = nullptr;
  	a = a->end();
@@ -113,8 +118,11 @@ Bignum *Bignum::sum(const Bignum *a, const Bignum *b) {
 		if (b != nullptr) b = b->prev;
 	}
 
-	// cout << "=" << res->begin()->stringify() << endl;
 	return res;
+}
+
+Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
+	// TODO
 }
 
 Bignum *Bignum::fibonacci(int n) {
@@ -141,6 +149,7 @@ Bignum *Bignum::fibonacci(int n) {
 	// don't delete second
 	return result;
 }
+
 
 Bignum *Bignum::fromString(string &str) {
 	Bignum *current = nullptr;
