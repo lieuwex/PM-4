@@ -16,15 +16,15 @@ public:
 
 	void multiply(const Bignum&, const Bignum&);
 
-	Bignum *begin(void);
-	Bignum *end(void);
+	const Bignum *begin(void) const;
+	const Bignum *end(void) const;
 
 	Bignum *prepend(Bignum*);
 	Bignum *append(Bignum*);
 
 	std::string stringify(void) const;
 
-	static Bignum *sum(Bignum*, Bignum*);
+	static Bignum *sum(const Bignum*, const Bignum*);
 	static Bignum *fibonacci(int);
 	static Bignum *fromString(std::string&);
 	static Bignum *fromString(const char*); // REVIEW

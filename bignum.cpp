@@ -41,15 +41,15 @@ Bignum::~Bignum() {
 	this->next = nullptr;
 }
 
-Bignum *Bignum::begin(void) {
-	Bignum *current = this;
+const Bignum *Bignum::begin(void) const {
+	const Bignum *current = this;
 	while (current->prev) {
 		current = current->prev;
 	}
 	return current;
 }
-Bignum *Bignum::end(void) {
-	Bignum *current = this;
+const Bignum *Bignum::end(void) const {
+	const Bignum *current = this;
 	while (current->next) {
 		current = current->next;
 	}
@@ -83,7 +83,7 @@ string Bignum::stringify(void) const {
 	return ss.str();
 }
 
-Bignum *Bignum::sum(Bignum *a, Bignum *b) {
+Bignum *Bignum::sum(const Bignum *a, const Bignum *b) {
 	unsigned short carry = 0;
 
 	// cout << a->begin()->stringify() << "+" << b->begin()->stringify();
