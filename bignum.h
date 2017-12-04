@@ -22,7 +22,7 @@ public:
 	Bignum *prepend(Bignum*);
 	Bignum *append(Bignum*);
 
-	std::string strinigfy(void) const;
+	std::string stringify(void) const;
 
 	static Bignum *sum(Bignum*, Bignum*);
 	static Bignum *fromString(std::string&);

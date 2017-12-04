@@ -13,5 +13,5 @@ int main(void) {
 
 	Bignum res;
 	res.sum(a, b);
-	cout << res.begin()->strinigfy() << endl;
+	cout << res.begin()->stringify() << endl;
 }

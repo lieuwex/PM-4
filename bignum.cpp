@@ -1,3 +1,4 @@
+#include <iomanip>
 #include <cassert>
 #include <cmath>
 #include <sstream>
@@ -60,14 +61,15 @@ Bignum *Bignum::append(Bignum *num) {
 	return num;
 }
 
-string Bignum::strinigfy(void) const {
+string Bignum::stringify(void) const {
 	stringstream ss;
 
 	const Bignum *current = this;
-	do {
-		ss << current->value;
+	ss << current->value;
+	while (current->next != nullptr) {
 		current = current->next;
-	} while (current != nullptr);
+		ss << setfill('0') << setw(NODE_SIZE) << current->value;
+	}
 
 	return ss.str();
 }
