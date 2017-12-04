@@ -31,9 +31,10 @@ Bignum::Bignum(int n) {
 	this->next = nullptr;
 	this->value = n;
 }
+// only copies to right
 Bignum::Bignum(const Bignum *num) {
 	this->prev = num->prev;
-	this->next = num->next;
+	this->next = num->next ? new Bignum(num->next) : nullptr;
 	this->value = num->value;
 }
 Bignum::~Bignum() {
@@ -131,9 +132,8 @@ Bignum *Bignum::fibonacci(int n) {
 		result = Bignum::sum(first, second);
 
 		delete first;
-		first = new Bignum(second);
+		first = second;
 
-		// delete second;
 		second = result;
 	}
 
