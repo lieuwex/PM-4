@@ -26,4 +26,6 @@ public:
 	static Bignum *fibonacci(int);
 
 	static Bignum *fromString(std::string);
+
+	static Bignum *makeZeroes(long long);
 };

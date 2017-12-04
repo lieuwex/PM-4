@@ -170,3 +170,6 @@ Bignum *Bignum::fromString(string str) {
 	return current;
 }
 
+Bignum *Bignum::makeZeroes(long long m) {
+	return Bignum::fromString(string(m * NODE_SIZE, '0'));
+}
