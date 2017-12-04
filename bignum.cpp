@@ -1,4 +1,6 @@
+#include <algorithm>
 #include <iomanip>
+#include <iostream>
 #include <cassert>
 #include <cmath>
 #include <sstream>
@@ -22,14 +24,21 @@ int ndigits(T num)
 Bignum::Bignum() {
 	this->prev = nullptr;
 	this->next = nullptr;
+	this->value = 0;
 }
 Bignum::Bignum(int n) {
 	this->prev = nullptr;
 	this->next = nullptr;
 	this->value = n;
 }
+Bignum::Bignum(const Bignum *num) {
+	this->prev = num->prev;
+	this->next = num->next;
+	this->value = num->value;
+}
 Bignum::~Bignum() {
-	delete this->prev;
+	delete this->next;
+	this->next = nullptr;
 }
 
 Bignum *Bignum::begin(void) {
@@ -77,6 +86,8 @@ string Bignum::stringify(void) const {
 Bignum *Bignum::sum(Bignum *a, Bignum *b) {
 	unsigned short carry = 0;
 
+	// cout << a->begin()->stringify() << "+" << b->begin()->stringify();
+
 	Bignum *res = nullptr;
  	a = a->end();
 	b = b->end();
@@ -101,11 +112,34 @@ Bignum *Bignum::sum(Bignum *a, Bignum *b) {
 		if (b != nullptr) b = b->prev;
 	}
 
+	// cout << "=" << res->begin()->stringify() << endl;
 	return res;
 }
 
-void Bignum::fibonacci(int n) {
-	assert(n < 10000);
+Bignum *Bignum::fibonacci(int n) {
+	assert(n < 10000); // as stated in the exercice
+
+	if (n == 0 || n == 1) {
+		return new Bignum(n);
+	}
+
+	Bignum *result;
+	Bignum *first = new Bignum(0);
+	Bignum *second = new Bignum(1);
+
+	for (int i = 0; i < n-1; i++) {
+		result = Bignum::sum(first, second);
+
+		delete first;
+		first = new Bignum(second);
+
+		// delete second;
+		second = result;
+	}
+
+	delete first;
+	// don't delete second
+	return result;
 }
 
 Bignum *Bignum::fromString(string &str) {

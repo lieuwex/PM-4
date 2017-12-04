@@ -11,10 +11,10 @@ private:
 public:
 	Bignum();
 	Bignum(int);
+	Bignum(const Bignum*);
 	~Bignum();
 
 	void multiply(const Bignum&, const Bignum&);
-	void fibonacci(int);
 
 	Bignum *begin(void);
 	Bignum *end(void);
@@ -25,6 +25,7 @@ public:
 	std::string stringify(void) const;
 
 	static Bignum *sum(Bignum*, Bignum*);
+	static Bignum *fibonacci(int);
 	static Bignum *fromString(std::string&);
 	static Bignum *fromString(const char*); // REVIEW
 };
