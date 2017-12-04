@@ -118,7 +118,7 @@ Bignum *Bignum::fromString(string &str) {
 		if (current == nullptr) {
 			current = num;
 		} else {
-			current->prepend(num);
+			current = current->prepend(num);
 		}
 	}
 
