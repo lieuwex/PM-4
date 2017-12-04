@@ -25,6 +25,5 @@ public:
 	static Bignum *multiply(const Bignum*, const Bignum*);
 	static Bignum *fibonacci(int);
 
-	static Bignum *fromString(std::string&);
-	static Bignum *fromString(const char*); // REVIEW
+	static Bignum *fromString(std::string);
 };

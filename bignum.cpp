@@ -151,7 +151,7 @@ Bignum *Bignum::fibonacci(int n) {
 }
 
 
-Bignum *Bignum::fromString(string &str) {
+Bignum *Bignum::fromString(string str) {
 	Bignum *current = nullptr;
 	reverse(str.begin(), str.end());
 
@@ -170,7 +170,3 @@ Bignum *Bignum::fromString(string &str) {
 	return current;
 }
 
-Bignum *Bignum::fromString(const char *str) {
-	string s = str;
-	return Bignum::fromString(s);
-}
