@@ -31,29 +31,6 @@ Bignum::~Bignum() {
 	delete this->prev;
 }
 
-void Bignum::sum(const Bignum *a, const Bignum *b) {
-#define APPLY(num, a, b) do {\
-	num->value = a + b + carry; \
-	carry = 0; \
-	if (ndigits(num->value) > NODE_SIZE) { \
-		carry = num->value / pow(10, NODE_SIZE); \
-		num->value -= carry * pow(10, NODE_SIZE); \
-	} \
-} while(0);
-
-	unsigned short carry = 0;
-	APPLY(this, a->value, b->value);
-
-	Bignum *curr = this->prepend(new Bignum());
-	while (a->prev || b->prev || carry) {
-		long aPrev = a->prev ? a->prev->value : 0;
-		long bPrev = b->prev ? b->prev->value : 0;
-		APPLY(curr, aPrev, bPrev);
-	}
-
-#undef APPLY
-}
-
 Bignum *Bignum::begin(void) {
 	Bignum *current = this;
 	while (current->prev) {
@@ -93,6 +70,36 @@ string Bignum::strinigfy(void) const {
 	} while (current != nullptr);
 
 	return ss.str();
+}
+
+Bignum *Bignum::sum(Bignum *a, Bignum *b) {
+	unsigned short carry = 0;
+
+	Bignum *res = nullptr;
+ 	a = a->end();
+	b = b->end();
+
+	while (a != nullptr || b != nullptr || carry != 0) {
+		int aVal = a ? a->value : 0;
+		int bVal = b ? b->value : 0;
+
+		res = res == nullptr ?
+			new Bignum() :
+			res->prepend(new Bignum());
+
+		res->value = aVal + bVal + carry;
+		carry = 0;
+		// set possible carry
+		if (ndigits(res->value) > NODE_SIZE) {
+			carry = res->value / pow(10, NODE_SIZE);
+			res->value -= carry * pow(10, NODE_SIZE);
+		}
+
+		if (a != nullptr) a = a->prev;
+		if (b != nullptr) b = b->prev;
+	}
+
+	return res;
 }
 
 void Bignum::fibonacci(int n) {

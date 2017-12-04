@@ -13,7 +13,6 @@ public:
 	Bignum(int);
 	~Bignum();
 
-	void sum(const Bignum*, const Bignum*);
 	void multiply(const Bignum&, const Bignum&);
 	void fibonacci(int);
 
@@ -25,5 +24,6 @@ public:
 
 	std::string strinigfy(void) const;
 
+	static Bignum *sum(Bignum*, Bignum*);
 	static Bignum *fromString(std::string&);
 };
