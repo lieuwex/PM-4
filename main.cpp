@@ -49,11 +49,11 @@ Command parseLine(const string &line) {
 
 int getNumber(char c) {
 	switch (c) {
-	case 'a': case 'A': case '0':
+	case 'a': case 'A':
 		return 0;
-	case 'b': case 'B': case '1':
+	case 'b': case 'B':
 		return 1;
-	case 'c': case 'C': case '2':
+	case 'c': case 'C':
 		return 2;
 
 	default:
