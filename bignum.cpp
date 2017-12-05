@@ -154,7 +154,7 @@ Bignum *Bignum::factorial(const Bignum *to) {
 	Bignum one(1);
 
 	Bignum *res = new Bignum(1);
-	Bignum *i = new Bignum(1);
+	Bignum *i = new Bignum(2);
 
 #define RUN() do { \
 		Bignum *newres = Bignum::multiply(res, i); \
