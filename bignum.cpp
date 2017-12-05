@@ -10,18 +10,6 @@
 
 using namespace std;
 
-template <class T>
-int ndigits(T num)
-{
-	int len = 0;
-	while (num) {
-		num /= 10;
-		len++;
-	}
-	return len;
-}
-
-
 Bignum::Bignum() {
 	this->prev = nullptr;
 	this->next = nullptr;
@@ -107,12 +95,9 @@ Bignum *Bignum::sum(const Bignum *a, const Bignum *b) {
 			res->prepend(new Bignum());
 
 		res->value = aVal + bVal + carry;
-		carry = 0;
 		// set possible carry
-		if (ndigits(res->value) > NODE_SIZE) {
-			carry = res->value / pow(10, NODE_SIZE);
-			res->value -= carry * pow(10, NODE_SIZE);
-		}
+		carry = res->value / pow(10, NODE_SIZE);
+		res->value %= (int)pow(10, NODE_SIZE);
 
 		if (a != nullptr) a = a->prev;
 		if (b != nullptr) b = b->prev;
