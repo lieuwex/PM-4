@@ -109,7 +109,25 @@ Bignum *Bignum::sum(const Bignum *a, const Bignum *b) {
 }
 
 Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
+	// do some little tricks for *0 and *1
+	{
+		a = a->begin();
+		b = b->begin();
+
+		string aStr = a->stringify();
+		string bStr = b->stringify();
+
+		if (aStr == "0" || bStr == "0") {
+			return new Bignum(0);
+		} else if (aStr == "1") {
+			return new Bignum(b);
+		} else if (bStr == "1") {
+			return new Bignum(a);
+		}
+	}
+
 	// TODO
+	return NULL;
 }
 
 Bignum *Bignum::fibonacci(int n) {
