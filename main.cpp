@@ -72,7 +72,7 @@ bool runCommand(Command &command, char **error) {
 
 	if (command.name == "p" || command.name == "print") { // print <val>
 		GETNUM(num, command.args[0][0], true);
-		cout << nums[num]->stringify() << endl;
+		cout << nums[num]->begin()->stringify() << endl;
 	} else if (command.name == "s" || command.name == "set") { // set <dest> <val>
 		GETNUM(destNum, command.args[0][0], true);
 		GETNUM(valNum, command.args[1][0], false);

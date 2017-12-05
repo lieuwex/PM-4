@@ -85,7 +85,7 @@ Bignum *Bignum::sum(const Bignum *a, const Bignum *b) {
 	unsigned short carry = 0;
 
 	Bignum *res = nullptr;
- 	a = a->end();
+	a = a->end();
 	b = b->end();
 
 	while (a != nullptr || b != nullptr || carry != 0) {
@@ -174,11 +174,9 @@ Bignum *Bignum::fromString(string str) {
 		reverse(slice.begin(), slice.end());
 
 		Bignum *num = new Bignum(stoi(slice));
-		if (current == nullptr) {
-			current = num;
-		} else {
-			current = current->prepend(num);
-		}
+		current = current == nullptr ?
+			num :
+			current->prepend(num);
 	}
 
 	return current;
