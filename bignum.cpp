@@ -17,6 +17,8 @@ Bignum::Bignum() {
 }
 
 Bignum::Bignum(int n) {
+	assert(n < pow(10, NODE_SIZE));
+
 	this->prev = nullptr;
 	this->next = nullptr;
 	this->value = n;
