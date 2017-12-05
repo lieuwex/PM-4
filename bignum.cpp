@@ -150,6 +150,33 @@ Bignum *Bignum::fibonacci(int n) {
 	return result;
 }
 
+Bignum *Bignum::factorial(const Bignum *to) {
+	Bignum one(1);
+
+	Bignum *res = new Bignum(1);
+	Bignum *i = new Bignum(1);
+
+#define RUN() do { \
+		Bignum *newres = Bignum::multiply(res, i); \
+		delete res; \
+		res = newres; \
+		\
+		Bignum *newI = Bignum::sum(i, &one); \
+		delete i; \
+		i = newI; \
+	} while(0)
+
+	while (i->stringify() != to->stringify()) {
+		RUN();
+	}
+	RUN(); // one time more
+
+	delete i;
+	return res;
+
+#undef RUN
+}
+
 
 Bignum *Bignum::fromString(string str) {
 	Bignum *current = nullptr;
