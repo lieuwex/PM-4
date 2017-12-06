@@ -76,10 +76,12 @@ bool runCommand(Command &command, char **error) {
 
 	if (command.name == "p" || command.name == "print") { // print <val>
 		GETNUM(num, command.args[0][0], true);
-		cout << nums[num]->stringify() << endl;
+
+		cout << nums[num]->begin()->stringify() << endl;
 	} else if (command.name == "s" || command.name == "set") { // set <dest> <val>
 		GETNUM(destNum, command.args[0][0], true);
 		GETNUM(valNum, command.args[1][0], false);
+
 		nums[destNum].reset(
 			valNum >= 0 ?
 				new Bignum(*nums[valNum]) :
@@ -105,19 +107,21 @@ bool runCommand(Command &command, char **error) {
 	} else if (command.name == "fib" || command.name == "fibonacci") { // factorial <dest> <n>
 		GETNUM(destNum, command.args[0][0], true);
 		nums[destNum].reset(Bignum::fibonacci(stoi(command.args[1])));
-	} else if (command.name == "q" || command.name == "quit") { // quit
-		return true;
 	} else if (command.name == "h" || command.name == "help") { // help
 		cout << "=== VARIABLES" << endl;
 		cout << "a=" << nums[0]->stringify() << endl;
 		cout << "b=" << nums[1]->stringify() << endl;
 		cout << "c=" << nums[2]->stringify() << endl;
+		cout << "d=" << nums[3]->stringify() << endl;
+		cout << "e=" << nums[4]->stringify() << endl;
 		cout << "=== COMMANDS" << endl;
 		cout << "print <val>\t\t\t\t\tprints the given variable" << endl;
 		cout << "set <dest> <val>\t\t\tsets dest to the given numeric value or bignum variable" << endl;
 		cout << "add <dest> <a> <b>\t\t\tsets dest to the result of a+b" << endl;
 		cout << "multiply <dest> <a> <b>\t\tsets dest to the result of a*b" << endl;
 		cout << "fibonacci <dest> <n>\t\tsets dest to the value of F_n where n is an integer <10000" << endl;
+	} else if (command.name == "q" || command.name == "quit") { // quit
+		return true;
 	} else {
 		asprintf(error, "unknown command '%s'", command.name.c_str());
 	}
@@ -156,17 +160,25 @@ int main(void) {
 		string line;
 		getline(cin, line);
 
+		if (cin.eof()) {
+			cout << endl;
+			break;
+		}
+
 		Command command = parseLine(line);
 
 		char *err = nullptr;
 		bool exit = runCommand(command, &err);
 		if (err != nullptr) {
 			cerr << err << endl;
-			return 1;
+			free(err);
 		}
 
 		if (exit) {
-			return 0;
+			break;
 		}
 	}
+
+	cout << "bye!" << endl;
+	return 0;
 }
