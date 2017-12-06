@@ -101,9 +101,7 @@ bool runCommand(Command &command, char **error) {
 		nums[destNum].reset(Bignum::multiply(nums[aNum].get(), nums[bNum].get()));
 	} else if (command.name == "!" || command.name == "factorial") { // factorial <dest> <n>
 		GETNUM(destNum, command.args[0][0], true);
-		GETNUM(timesNum, command.args[1][0], true);
-
-		nums[destNum].reset(Bignum::factorial(nums[timesNum].get()));
+		nums[destNum].reset(Bignum::factorial(stoi(command.args[1])));
 	} else if (command.name == "fib" || command.name == "fibonacci") { // factorial <dest> <n>
 		GETNUM(destNum, command.args[0][0], true);
 		nums[destNum].reset(Bignum::fibonacci(stoi(command.args[1])));
@@ -120,6 +118,7 @@ bool runCommand(Command &command, char **error) {
 		cout << "add <dest> <a> <b>\t\t\tsets dest to the result of a+b" << endl;
 		cout << "multiply <dest> <a> <b>\t\tsets dest to the result of a*b" << endl;
 		cout << "fibonacci <dest> <n>\t\tsets dest to the value of F_n where n is an integer <10000" << endl;
+		cout << "factorial <dest> <n>\t\tsets dest to the value of n! where n is an integer" << endl;
 	} else if (command.name == "q" || command.name == "quit") { // quit
 		return true;
 	} else {
