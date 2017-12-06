@@ -126,8 +126,44 @@ Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
 		}
 	}
 
-	// TODO
-	return NULL;
+	a = a->end();
+	b = b->end();
+
+	const Bignum *longest = a->stringify().length() > b->stringify().length() ? a : b;
+	const Bignum *currLongest = longest->end();
+	const Bignum *shortest = a->stringify().length() > b->stringify().length() ? b : a;
+	const Bignum *currShortest = shortest->end();
+
+	unique_ptr<Bignum> res(new Bignum(0));
+	while (currLongest != nullptr) {
+		unique_ptr<Bignum> prev(new Bignum(0));
+
+		while (currShortest != nullptr) {
+			int aVal = currLongest ? currLongest->value : 1;
+			int bVal = currShortest ? currShortest->value : 1;
+
+			Bignum *num = nullptr;
+
+			long long carry;
+			do {
+				long long val = aVal * bVal;
+
+				carry = val / pow(10, NODE_SIZE);
+				val %= (int)pow(10, NODE_SIZE);
+
+				num = num == nullptr ?
+					new Bignum(val) :
+					num->prepend(new Bignum(val));
+
+			} while (carry > 0);
+
+			prev.reset(num);
+		}
+		currShortest = shortest->end();
+	}
+
+	cout << "* "  << res->begin()->stringify() << endl;
+	return nullptr;
 }
 
 Bignum *Bignum::fibonacci(int n) {
