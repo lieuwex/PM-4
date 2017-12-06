@@ -6,7 +6,7 @@
 
 using namespace std;
 
-unique_ptr<Bignum> nums[3];
+unique_ptr<Bignum> nums[5];
 
 vector<string> split(const string &str, const string &delim) {
 	vector<string> res;
@@ -49,12 +49,16 @@ Command parseLine(const string &line) {
 
 int getNumber(char c) {
 	switch (c) {
-	case 'a': case 'A': case '0':
+	case 'a': case 'A':
 		return 0;
-	case 'b': case 'B': case '1':
+	case 'b': case 'B':
 		return 1;
-	case 'c': case 'C': case '2':
+	case 'c': case 'C':
 		return 2;
+	case 'd': case 'D':
+		return 3;
+	case 'e': case 'E':
+		return 4;
 
 	default:
 		return -1;
@@ -143,6 +147,8 @@ int main(void) {
 	nums[0] = unique_ptr<Bignum>(new Bignum(0));
 	nums[1] = unique_ptr<Bignum>(new Bignum(1));
 	nums[2] = unique_ptr<Bignum>(new Bignum(2));
+	nums[3] = unique_ptr<Bignum>(new Bignum(3));
+	nums[4] = unique_ptr<Bignum>(new Bignum(4));
 
 	while (true) {
 		cout << "> " << flush;
