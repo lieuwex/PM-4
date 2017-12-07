@@ -7,6 +7,7 @@
 #include "bignum.h"
 
 #define NODE_SIZE 2
+const double NODE_UPPER_VAL = pow(10, NODE_SIZE);
 
 using namespace std;
 
@@ -17,7 +18,7 @@ Bignum::Bignum() {
 }
 
 Bignum::Bignum(int n) {
-	assert(n < pow(10, NODE_SIZE));
+	assert(n < NODE_UPPER_VAL);
 
 	this->prev = nullptr;
 	this->next = nullptr;
@@ -98,8 +99,8 @@ Bignum *Bignum::sum(const Bignum *a, const Bignum *b) {
 
 		res->value = aVal + bVal + carry;
 		// set possible carry
-		carry = res->value / pow(10, NODE_SIZE);
-		res->value %= (int)pow(10, NODE_SIZE);
+		carry = res->value / NODE_UPPER_VAL;
+		res->value %= (int)NODE_UPPER_VAL;
 
 		if (a != nullptr) a = a->prev;
 		if (b != nullptr) b = b->prev;
@@ -133,8 +134,8 @@ Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
 		const Bignum *currB = b->end(); // don't free
 		while (currB != nullptr) {
 			long long val = currA->value * currB->value;
-			long long carry = val / pow(10, NODE_SIZE);
-			val %= (int)pow(10, NODE_SIZE);
+			long long carry = val / NODE_UPPER_VAL;
+			val %= (int)NODE_UPPER_VAL;
 
 			Bignum *num = new Bignum(0);
 			for (long long i = 1; i <= shift; i++) {
@@ -142,8 +143,8 @@ Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
 			}
 			num->value = val;
 			while (carry > 0) {
-				long long val = carry % (int)pow(10, NODE_SIZE);
-				carry /= pow(10, NODE_SIZE);
+				long long val = carry % (int)NODE_UPPER_VAL;
+				carry /= NODE_UPPER_VAL;
 				num = num->prepend(new Bignum(val));
 			}
 
@@ -190,7 +191,7 @@ Bignum *Bignum::fibonacci(int n) {
 }
 
 Bignum *Bignum::factorial(int n) {
-	assert(n < pow(10, NODE_SIZE));
+	assert(n < NODE_UPPER_VAL);
 
 	Bignum *res = new Bignum(1);
 
