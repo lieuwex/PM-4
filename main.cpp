@@ -119,7 +119,7 @@ bool runCommand(Command &command, char **error) {
 		cout << "multiply <dest> <a> <b>\t\tsets dest to the result of a*b" << endl;
 		cout << "fibonacci <dest> <n>\t\tsets dest to the value of F_n where n is an integer <10000" << endl;
 		cout << "factorial <dest> <n>\t\tsets dest to the value of n! where n is an integer" << endl;
-	} else if (command.name == "q" || command.name == "quit") { // quit
+	} else if (command.name == "q" || command.name == "quit" || command.name == "exit") { // quit
 		return true;
 	} else {
 		asprintf(error, "unknown command '%s'", command.name.c_str());
