@@ -113,12 +113,13 @@ bool runCommand(Command &command, char **error) {
 		cout << "d=" << nums[3]->stringify() << endl;
 		cout << "e=" << nums[4]->stringify() << endl;
 		cout << "=== COMMANDS" << endl;
-		cout << "print <val>\t\t\t\t\tprints the given variable" << endl;
-		cout << "set <dest> <val>\t\t\tsets dest to the given numeric value or bignum variable" << endl;
-		cout << "add <dest> <a> <b>\t\t\tsets dest to the result of a+b" << endl;
+		cout << "print <val>\t\t\tprints the given variable" << endl;
+		cout << "set <dest> <val>\t\tsets dest to the given numeric value or bignum variable" << endl;
+		cout << "add <dest> <a> <b>\t\tsets dest to the result of a+b" << endl;
 		cout << "multiply <dest> <a> <b>\t\tsets dest to the result of a*b" << endl;
 		cout << "fibonacci <dest> <n>\t\tsets dest to the value of F_n where n is an integer <10000" << endl;
 		cout << "factorial <dest> <n>\t\tsets dest to the value of n! where n is an integer" << endl;
+		cout << "quit\t\t\t\tquits the program" << endl;
 	} else if (command.name == "q" || command.name == "quit" || command.name == "exit") { // quit
 		return true;
 	} else {
