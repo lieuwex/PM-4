@@ -111,11 +111,8 @@ Bignum *Bignum::sum(const Bignum *a, const Bignum *b) {
 Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
 	// do some little tricks for *0 and *1
 	{
-		a = a->begin();
-		b = b->begin();
-
-		string aStr = a->stringify();
-		string bStr = b->stringify();
+		string aStr = a->begin()->stringify();
+		string bStr = b->begin()->stringify();
 
 		if (aStr == "0" || bStr == "0") {
 			return new Bignum(0);
@@ -126,26 +123,22 @@ Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
 		}
 	}
 
-	const Bignum *currA = a->end();
-	const Bignum *currB = b->end();
-
-	long long i = 0;
-
 	Bignum *res = new Bignum(0);
+
+	const Bignum *currA = a->end(); // don't free
+	long long baseShift = 0;
 	while (currA != nullptr) {
-		long long shift = i;
+		long long shift = baseShift;
 
+		const Bignum *currB = b->end(); // don't free
 		while (currB != nullptr) {
-			int aVal = currA ? currA->value : 1;
-			int bVal = currB ? currB->value : 1;
-
-			long long val = aVal * bVal;
+			long long val = currA->value * currB->value;
 			long long carry = val / pow(10, NODE_SIZE);
 			val %= (int)pow(10, NODE_SIZE);
 
-			Bignum *num = nullptr;
-			for (long long i = 0; i <= shift; i++) {
-				num = !num ? new Bignum(0) : num->prepend(new Bignum(0));
+			Bignum *num = new Bignum(0);
+			for (long long i = 1; i <= shift; i++) {
+				num = num->prepend(new Bignum(0));
 			}
 			num->value = val;
 			while (carry > 0) {
@@ -154,17 +147,18 @@ Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
 				num = num->prepend(new Bignum(val));
 			}
 
-			Bignum *resTmp = res;
-			res = Bignum::sum(resTmp, num);
-			delete resTmp;
+			Bignum *newRes = Bignum::sum(res, num);
+			delete res;
 			delete num;
+			res = newRes;
 
 			currB = currB->prev;
 			shift++;
 		}
-		currB = b->end();
+
 		currA = currA->prev;
-		i++;
+
+		baseShift++;
 	}
 
 	return res;
