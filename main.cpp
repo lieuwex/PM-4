@@ -1,3 +1,11 @@
+/*
+ * Auteurs: Lieuwe Rooijakkers (s2012820) en Bart de Zoete (s2030098)
+ * Compiler: clang++ 800.0.42.1
+ * Last modified on: 2017-12-07
+ *
+ * PM opdracht 4: Grote getallen
+ */
+
 #include <iostream>
 #include <memory>
 #include <vector>
