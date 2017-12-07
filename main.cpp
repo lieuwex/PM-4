@@ -136,11 +136,13 @@ void printInfoBlock(void) {
 	cout << "|                                Grote getallen                                |" << endl;
 	cout << "|                                     PM4                                      |" << endl;
 	cout << "|                                                                              |" << endl;
-	cout << "|              Geschreven door Lieuwe Rooijakkers en Bart de Zoete             |" << endl;
-	cout << "|                                  s2012820            s2030098                |" << endl;
+	cout << "|             Geschreven door Lieuwe Rooijakkers en Bart de Zoete              |" << endl;
+	cout << "|                                  s2012820           s2030098                 |" << endl;
 	cout << "|                                                                              |" << endl;
-	cout << "|                                    KAAS                                      |" << endl;
-	cout << "|                                    enter 'help' to print help                |" << endl;
+	cout << "|     Dit programma stelt de gebruiker in staat om te rekenen met arbitrair    |" << endl;
+	cout << "|                     lange getallen groter dan INT_MAX                        |" << endl;
+	cout << "|                                                                              |" << endl;
+	cout << "|                         enter 'help' to print help                           |" << endl;
 	cout << "--------------------------------------------------------------------------------" << endl;
 	cout << endl;
 }
