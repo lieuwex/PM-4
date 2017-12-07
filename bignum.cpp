@@ -111,8 +111,11 @@ Bignum *Bignum::sum(const Bignum *a, const Bignum *b) {
 Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
 	// do some little tricks for *0 and *1
 	{
-		string aStr = a->begin()->stringify();
-		string bStr = b->begin()->stringify();
+		a = a->begin();
+		b = b->begin();
+
+		string aStr = a->stringify();
+		string bStr = b->stringify();
 
 		if (aStr == "0" || bStr == "0") {
 			return new Bignum(0);
