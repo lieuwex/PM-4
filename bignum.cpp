@@ -165,8 +165,6 @@ Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
 }
 
 Bignum *Bignum::fibonacci(int n) {
-	assert(n < 10000); // as stated in the exercice
-
 	if (n == 0 || n == 1) {
 		return new Bignum(n);
 	}
