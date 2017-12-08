@@ -23,7 +23,7 @@ public:
 
 	static Bignum *sum(const Bignum*, const Bignum*);
 	static Bignum *multiply(const Bignum*, const Bignum*);
-	static Bignum *fibonacci(int);
+	static Bignum *fibonacci(unsigned int);
 	static Bignum *factorial(int);
 
 	static Bignum *fromString(std::string);

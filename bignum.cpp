@@ -181,7 +181,7 @@ Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
 }
 
 // Returns a new Bignum containing the `n`th Fibonacci number.
-Bignum *Bignum::fibonacci(int n) {
+Bignum *Bignum::fibonacci(unsigned int n) {
 	if (n == 0 || n == 1) {
 		return new Bignum(n);
 	}
@@ -190,7 +190,7 @@ Bignum *Bignum::fibonacci(int n) {
 	Bignum *first = new Bignum(0);
 	Bignum *second = new Bignum(1);
 
-	for (int i = 0; i < n-1; i++) {
+	for (unsigned int i = 0; i < n-1; i++) {
 		result = Bignum::sum(first, second);
 
 		delete first;
