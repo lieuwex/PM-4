@@ -10,12 +10,14 @@
 
 using namespace std;
 
+// Create a single empty Bignum cell.
 Bignum::Bignum() {
 	this->prev = nullptr;
 	this->next = nullptr;
 	this->value = 0;
 }
 
+// Create a single Bignum cell with value n.
 Bignum::Bignum(int n) {
 	assert(n < pow(10, NODE_SIZE));
 
@@ -24,19 +26,23 @@ Bignum::Bignum(int n) {
 	this->value = n;
 }
 
-// only copies to right
+// Create a new Bignum that is a copy of the given `num`.
+// Only copies to right
 Bignum::Bignum(const Bignum *num) {
 	this->prev = num->prev;
 	this->next = num->next ? new Bignum(num->next) : nullptr;
 	this->value = num->value;
 }
 
+// Deletes the current Bignum
 Bignum::~Bignum() {
 	delete this->next;
 	this->next = nullptr;
 }
 
 
+// Prepends the given `num` to the current Bignum instance.
+// Manipulates `num`.
 Bignum *Bignum::prepend(Bignum *num) {
 	num->prev = this->prev;
 	this->prev = num;
@@ -44,6 +50,8 @@ Bignum *Bignum::prepend(Bignum *num) {
 	return num;
 }
 
+// Appends the given `num` to the current Bignum instance.
+// Manipulates `num`.
 Bignum *Bignum::append(Bignum *num) {
 	num->next = this->next;
 	this->next = num;
@@ -52,6 +60,7 @@ Bignum *Bignum::append(Bignum *num) {
 }
 
 
+// Return a string representing the current Bignum instance.
 string Bignum::stringify(void) const {
 	stringstream ss;
 
@@ -65,6 +74,7 @@ string Bignum::stringify(void) const {
 	return ss.str();
 }
 
+// Return a pointer to the first cell of the list of the current Bignum.
 const Bignum *Bignum::begin(void) const {
 	const Bignum *current = this;
 	while (current->prev) {
@@ -72,6 +82,7 @@ const Bignum *Bignum::begin(void) const {
 	}
 	return current;
 }
+// Return a pointer to the last cell of the list of the current Bignum.
 const Bignum *Bignum::end(void) const {
 	const Bignum *current = this;
 	while (current->next) {
@@ -81,6 +92,7 @@ const Bignum *Bignum::end(void) const {
 }
 
 
+// Returns a new Bignum containing the sum of `a` and `b`.
 Bignum *Bignum::sum(const Bignum *a, const Bignum *b) {
 	unsigned short carry = 0;
 
@@ -108,6 +120,7 @@ Bignum *Bignum::sum(const Bignum *a, const Bignum *b) {
 	return res;
 }
 
+// Returns a new Bignum containing the product of `a` and `b`.
 Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
 	// do some little tricks for *0 and *1
 	{
@@ -167,6 +180,7 @@ Bignum *Bignum::multiply(const Bignum *a, const Bignum *b) {
 	return res;
 }
 
+// Returns a new Bignum containing the `n`th Fibonacci number.
 Bignum *Bignum::fibonacci(int n) {
 	if (n == 0 || n == 1) {
 		return new Bignum(n);
@@ -190,6 +204,7 @@ Bignum *Bignum::fibonacci(int n) {
 	return result;
 }
 
+// Returns a new Bignum containing `n`!.
 Bignum *Bignum::factorial(int n) {
 	assert(n < pow(10, NODE_SIZE));
 
@@ -206,6 +221,7 @@ Bignum *Bignum::factorial(int n) {
 }
 
 
+// Returns a new Bignum representing the value of the given base10 string.
 Bignum *Bignum::fromString(string str) {
 	Bignum *current = nullptr;
 	reverse(str.begin(), str.end());
@@ -223,6 +239,7 @@ Bignum *Bignum::fromString(string str) {
 	return current;
 }
 
+// Returns a new Bignum that exists of `m` cells, filled with zeroes.
 Bignum *Bignum::makeZeroes(long long m) {
 	return Bignum::fromString(string(m * NODE_SIZE, '0'));
 }

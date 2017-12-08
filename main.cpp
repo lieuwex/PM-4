@@ -16,6 +16,8 @@ using namespace std;
 
 unique_ptr<Bignum> nums[5];
 
+// Splits the given string `str` on the string delimiter `delim` into a
+// vector<string>.
 vector<string> split(const string &str, const string &delim) {
 	vector<string> res;
 	string::size_type start = 0U;
@@ -31,6 +33,8 @@ vector<string> split(const string &str, const string &delim) {
 	return res;
 }
 
+// Trims the given string `s`, that means: remove leading and trailing spaces
+// and tabs.
 string trim(const string &s) {
 	string::size_type begin = s.find_first_not_of(" \t");
 	string::size_type end = s.find_last_not_of(" \t");
@@ -47,6 +51,7 @@ struct Command {
 	vector<string> args;
 };
 
+// Parses the given `line` as a Command.
 Command parseLine(const string &line) {
 	vector<string> words = split(trim(line), " ");
 	return {
@@ -55,6 +60,7 @@ Command parseLine(const string &line) {
 	};
 }
 
+// Returns the index of the bignum var represented by `c`.
 int getNumber(char c) {
 	switch (c) {
 	case 'a': case 'A':
@@ -73,7 +79,8 @@ int getNumber(char c) {
 	}
 }
 
-// true when quit
+// Runs the given `command`, fills the string at `error` with the error, if any.
+// Returns true when the prompt should quit.
 bool runCommand(Command &command, char **error) {
 #define GETNUM(val, c, err) \
 	int val = getNumber(c); \
