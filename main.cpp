@@ -6,6 +6,8 @@
  * PM opdracht 4: Grote getallen
  */
 
+#define _GNU_SOURCE // asprintf
+
 #include <iostream>
 #include <memory>
 #include <vector>
